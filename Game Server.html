@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS小镇 - Minecraft公益服务器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary: #4CAF50;
+            --secondary: #8BC34A;
+            --accent: #FF9800;
+            --dark: #2E7D32;
+            --light: #E8F5E9;
+            --text: #333;
+            --background: #f9fbf2;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --download: #2196F3;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            background-image: 
+                linear-gradient(rgba(249, 251, 242, 0.9), rgba(249, 251, 242, 0.9)), 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234CAF50" opacity="0.05"/></svg>');
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #fff;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.1) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.1) 75%);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li::before {
+            content: "▸";
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(to right, var(--accent), #FF5722);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
+        
+        .promise-section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .promise-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .promise-content {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .promise-content p {
+            margin: 18px 0;
+            padding: 15px 20px;
+            border-left: 4px solid var(--accent);
+            background: var(--light);
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        
+        .join-section {
+            text-align: center;
+            padding: 40px 25px;
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+            border: 3px solid #fff;
+        }
+        
+        .join-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .server-info {
+            background: var(--card-bg);
+            display: inline-block;
+            padding: 25px 40px;
+            border-radius: 15px;
+            margin: 25px 0;
+            color: var(--text);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .info-item {
+            margin: 18px 0;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            min-width: 120px;
+            display: inline-block;
+            color: var(--dark);
+        }
+        
+        .info-value {
+            flex-grow: 1;
+            background: var(--light);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            word-break: break-all;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .wechat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #09bb07;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wechat-badge:hover {
+            background: #07a305;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 新增下载卡片样式 */
+        .download-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--light);
+        }
+        
+        .download-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .download-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--download);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+        
+        .download-badge:hover {
+            background: #0b7dda;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .password-hint {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #555;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            color: var(--dark);
+            font-size: 1.1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .minecraft-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #8BC34A;
+            border: 2px solid #4CAF50;
+            margin: 0 5px;
+            position: relative;
+            transform: rotate(45deg);
+        }
+        
+        .minecraft-icon::before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: #4CAF50;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .intro {
+                font-size: 1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .server-info {
+                padding: 20px;
+                width: 100%;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .info-label {
+                min-width: auto;
+            }
+            
+            .download-card {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .download-title {
+                font-size: 1.5rem;
+            }
+            
+            .download-badge {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin: 30px 0 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .section-title::before,
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+        
+        .server-ip {
+            background: #f0f7ff;
+            border: 2px dashed #4CAF50;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #2E7D32;
+            display: inline-block;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>【🏡自由建造 | 纯粹公益】「GS小镇」Game Server</h1>
+            <div class="tagline">零氪金·慢生活·共建温馨世界！</div>
+            <div class="intro">
+                <i class="fas fa-heart"></i> 欢迎来到治愈系生存乐园！
+                无任何氪金项目 · 无付费特权 · 无资源售卖 —— 只有纯净的方块世界与温暖的同好社群！
+            </div>
+        </header>
+        
+        <div class="section-title">
+            <i class="fas fa-mountain"></i> 服务器特色
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-hammer"></i> 自由建造 & 创意基地
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>超大地图自由选址</li>
+                        <li>支持大型建筑/小镇规划</li>
+                        <li>支持建造秘密基地</li>
+                        <li>从田园木屋到史诗城堡 —— <span class="highlight">你的想象力，就是世界的蓝图！</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-campground"></i> 慢节奏养老 & 休闲生活
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>种田钓鱼，日出而作</li>
+                        <li>洞穴探险，寻宝挖矿</li>
+                        <li>风景打卡，云端观星</li>
+                        <li>拒绝内卷，享受生活 —— <span class="highlight">在鸟鸣中醒来，在篝火旁入眠！</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-users"></i> 组队社交 & 社区共建
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>组队挑战地下城</li>
+                        <li>合建小镇图书馆/市集</li>
+                        <li>可自发举行建筑大赛</li>
+                        <li>独居隐士 or 社群达人？ —— <span class="highlight">这里总有你的位置！</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-header">
+                    <i class="fas fa-cogs"></i> 兼容生电 & 适度技术
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>基础红石机械可用</li>
+                        <li>简易农场/刷怪塔支持</li>
+                        <li>拒绝超频卡顿</li>
+                        <li><span class="highlight">想钻研技术？我们支持！想纯手挖？同样欢迎！</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="promise-section">
+            <h2 class="promise-title">
+                <i class="fas fa-hand-holding-heart"></i> 绝对公益承诺
+            </h2>
+            <div class="promise-content">
+                <p><i class="fas fa-bolt"></i> 服务器由热爱发电</p>
+                <p><i class="fas fa-ban"></i> 零充值入口</p>
+                <p><i class="fas fa-gift"></i> 永不添加付费礼包</p>
+                <p><i class="fas fa-scale-balanced"></i> 公平环境永不变质 —— <span class="highlight">你的时间与热爱，是这里唯一的货币！</span></p>
+            </div>
+        </div>
+        
+        <!-- 新增游戏下载卡片 -->
+        <div class="download-card">
+            <h2 class="download-title">
+                <i class="fas fa-download"></i> 游戏客户端下载
+            </h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #555;">
+                准备好加入我们了吗？下载最新版Minecraft客户端开始冒险吧！
+            </p>
+            <div style="text-align: center;">
+                <a href="https://ltcat.lanzouv.com/b0aj6gsid" class="download-badge" target="_blank">
+                    <i class="fas fa-cloud-download-alt"></i> 点击下载游戏客户端
+                </a>
+                <div class="password-hint">
+                    <i class="fas fa-key"></i> 提取密码: <strong>pcl2</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="join-section">
+            <h2 class="join-title">加入GS小镇，开启你的方块人生！</h2>
+            
+            <div class="server-info">
+                <div class="info-item">
+                    <span class="info-label">主服务器IP:</span>
+                    <div class="info-value">cn-hz1.qwq0v0.fun:25555</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">备用服务器IP:</span>
+                    <div class="info-value">47.96.237.48:25555</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">游戏版本:</span>
+                    <div class="info-value">Java版 1.21.6</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">服务器规则:</span>
+                    <div class="info-value">友好互助 · 禁止作弊 · 建筑无界！</div>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <a href="#" class="wechat-badge">
+                    <i class="fab fa-weixin"></i> 微信联系方式: Kloms_Fame
+                </a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 GS小镇 Minecraft 服务器 | 纯公益 · 零氪金 · 用爱发电</p>
+            <p style="margin-top: 10px; opacity: 0.8;">推开这扇木门，开启你的故事！</p>
+            <div style="margin-top: 20px;">
+                <div class="minecraft-icon"></div>
+                <div class="minecraft-icon"></div>
+                <div class="minecraft-icon"></div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 简单的动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            featureCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+            
+            // 为下载按钮添加动画
+            const downloadBadge = document.querySelector('.download-badge');
+            if (downloadBadge) {
+                downloadBadge.style.transform = 'scale(0.9)';
+                downloadBadge.style.opacity = '0';
+                setTimeout(() => {
+                    downloadBadge.style.transition = 'all 0.5s ease';
+                    downloadBadge.style.transform = 'scale(1)';
+                    downloadBadge.style.opacity = '1';
+                }, 800);
+            }
+        });
+    </script>
+</body>
+</html>
